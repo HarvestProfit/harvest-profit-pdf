@@ -2,6 +2,8 @@
   <img src="https://www.harvestprofit.com/logo.png" alt="Harvest Profit"></img>
 </div>
 
+[![Build Status](https://travis-ci.org/HarvestProfit/harvest-profit-pdf.svg?branch=master)](https://travis-ci.org/HarvestProfit/harvest-profit-pdf)
+
 ## Installation
 
 To add this, simply run:
