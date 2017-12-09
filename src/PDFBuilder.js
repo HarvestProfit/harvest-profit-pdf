@@ -9,7 +9,13 @@ eslint no-underscore-dangle: ["error", {
 }]
 */
 
-export default class PDFBuilder {
+/**
+ * Builds the PDF
+ */
+class PDFBuilder {
+  /**
+   * @param {Object} options The options used to build the PDF
+   */
   constructor(options = {}) {
     this.title = options.title || '';
 
@@ -53,8 +59,7 @@ export default class PDFBuilder {
   }
 
   /**
-    Add a new page to the PDF document.
-    @method addPage
+  * Add a new page to the PDF document.
   */
   addPage() {
     this.doc.addPage({
@@ -65,11 +70,10 @@ export default class PDFBuilder {
   }
 
   /**
-    Adds a new page to the PDF document if close to the end of the content area.
-    @method addPageIfNeeded
-    @param {Number} currentPage
-    @param {Number} pageCount
-    @return {Boolean}
+  * Adds a new page to the PDF document if close to the end of the content area.
+  * @param {number} currentPage
+  * @param {number} pageCount
+  * @return {boolean}
   */
   addPageIfNeeded(currentPage, pageCount) {
     if (this.doc.y / this.contentHeight() > 0.95) {
@@ -88,9 +92,8 @@ export default class PDFBuilder {
   }
 
   /**
-    Add a heading to the PDF document.
-    @method addHeading
-    @param {String} text
+  * Add a heading to the PDF document.
+  * @param {string} text The heading to add
   */
   addHeading(text) {
     this.addPageIfNeeded();
@@ -107,9 +110,8 @@ export default class PDFBuilder {
   }
 
   /**
-    Add a sub heading to the PDF document.
-    @method addHeading
-    @param {String} text
+  * Add a sub heading to the PDF document.
+  * @param {String} text
   */
   addSubHeading(text) {
     this.addPageIfNeeded();
@@ -126,9 +128,8 @@ export default class PDFBuilder {
   }
 
   /**
-    Add a table to the PDF document.
-    @method addTable
-    @param {PDFTable} table
+  * Add a table to the PDF document.
+  * @param {PDFTable} table
   */
   addTable(table) {
     this.addPageIfNeeded();
@@ -136,9 +137,8 @@ export default class PDFBuilder {
   }
 
   /**
-    Returns the height of the page inside the page margins.
-    @method contentHeight
-    @return {Number}
+  * Returns the height of the page inside the page margins.
+  * @return {number}
   */
   contentHeight() {
     const topMargin = this.header == null ? this.margins.top : this.header.height;
@@ -146,25 +146,21 @@ export default class PDFBuilder {
   }
 
   /**
-    Returns the width of the page inside the page margins.
-    @method contentWidth
-    @return {Number}
+  * Returns the width of the page inside the page margins.
+  * @return {number}
   */
   contentWidth() {
     return this.doc.page.width - this.margins.left - this.margins.right;
   }
 
   /**
-    Closes the document and generates blob URL that can be saved to disk.
-    Usage:
-    ```javascript
-    let pdfBuilder = new PDFBuilder();
-    let saveAs = require('file-saver');
-    pdfBuilder.generateBlob().then(function(blob) {
-      saveAs(blob, 'document.pdf');
-    });
-    ```
-    @method generateBlob
+  * Closes the document and generates blob URL that can be saved to disk.
+  * @example
+  * let pdfBuilder = new PDFBuilder();
+  * let saveAs = require('file-saver');
+  * pdfBuilder.generateBlob().then(function(blob) {
+  *   saveAs(blob, 'document.pdf');
+  * });
     @return {Promise}
   */
   generateBlob() {
@@ -183,16 +179,13 @@ export default class PDFBuilder {
   }
 
   /**
-    Closes the document and generates blob URL that can be loaded by a web browser.
-    Usage:
-     ```javascript
-    let pdfBuilder = new PDFBuilder();
-     pdfBuilder.generateBlobURL().then(function(url) {
-      $('iframe')[0].src = url;
-    });
-    ```
-    @method generateBlobURL
-    @return {Promise}
+  * Closes the document and generates blob URL that can be loaded by a web browser.
+  * @example
+  * let pdfBuilder = new PDFBuilder();
+  * pdfBuilder.generateBlobURL().then(function(url) {
+  *   $('iframe')[0].src = url;
+  * });
+  * @return {Promise}
   */
   generateBlobURL() {
     const doc = this.doc;
@@ -210,26 +203,23 @@ export default class PDFBuilder {
   }
 
   /**
-    Returns the position of the left edge of the page based on left margin.
-    @method pageLeft
-    @return {Number}
+  * Returns the position of the left edge of the page based on left margin.
+  * @return {number}
   */
   pageLeft() {
     return this.margins.left;
   }
 
   /**
-    Returns the position of the right edge of the page based on the width and right margin.
-    @method pageRight
-    @return {Number}
+  * Returns the position of the right edge of the page based on the width and right margin.
+  * @return {number}
   */
   pageRight() {
     return this.doc.page.width - this.margins.right;
   }
 
   /**
-    Sets the current print position to the top-left of the document + margins.
-    @method resetPosition
+  * Sets the current print position to the top-left of the document + margins.
   */
   resetPosition() {
     this.doc.x = this.margins.left;
@@ -255,3 +245,5 @@ export default class PDFBuilder {
     });
   }
 }
+
+export default PDFBuilder;

@@ -10,57 +10,71 @@ eslint no-underscore-dangle: ["error", {
 }]
 */
 
-export default class PDFTable {
+
+/**
+* Initialize a table for outputting to a PDF.
+* Usage:
+*   ```javascript
+*   let pdfBuilder = new PDFBuilder();
+*   let table = new PDFTable();
+*   pdfBuilder.addTable()
+*   ```
+*
+*   Minimum options required to build out the table:
+*   ```javascript
+*   let table = new PDFTable([{
+*     header: { text: 'ID' },
+*     rows:  [{ text: '1' }, { text: '2' }, { text: '3' }]
+*   }, {
+*     header: { text: 'Name' },
+*     rows:  [{ text: 'Billy' }, { text: 'Bob' }, { text: 'Suzy' }]
+*   }]);
+*   ```
+*
+*   All available options:
+*   ```javascript
+*   let table = new PDFTable([{
+*     header: {
+*       align:       'center',
+*       borderColor: '#000',
+*       borderStyle: 'bottom',
+*       borderWidth: 2,
+*       color:       '#000',
+*       font:        'Helvetica-Bold',
+*       fontSize:    14,
+*       text:        'Name'
+*     },
+*     rows: [{
+*       align:       'center',
+*       borderColor: '#000',
+*       borderStyle: 'bottom',
+*       borderWidth: 2,
+*       color:       '#000',
+*       font:        'Helvetica-Bold',
+*       fontSize:    14,
+*       text:        'Brian'
+*     }],
+*     width: 150 // or 0.25 for 25% of the table's width
+*   }]);
+*   ```
+*/
+class PDFTable {
   /**
-  Initialize a table for outputting to a PDF.
-  Usage:
-    ```javascript
-    let pdfBuilder = new PDFBuilder();
-    let table = new PDFTable();
-    pdfBuilder.addTable()
-    ```
-
-    Minimum options required to build out the table:
-    ```javascript
-    let table = new PDFTable([{
-      header: { text: 'ID' },
-      rows:  [{ text: '1' }, { text: '2' }, { text: '3' }]
-    }, {
-      header: { text: 'Name' },
-      rows:  [{ text: 'Billy' }, { text: 'Bob' }, { text: 'Suzy' }]
-    }]);
-    ```
-
-    All available options:
-    ```javascript
-    let table = new PDFTable([{
-      header: {
-        align:       'center',
-        borderColor: '#000',
-        borderStyle: 'bottom',
-        borderWidth: 2,
-        color:       '#000',
-        font:        'Helvetica-Bold',
-        fontSize:    14,
-        text:        'Name'
-      },
-      rows: [{
-        align:       'center',
-        borderColor: '#000',
-        borderStyle: 'bottom',
-        borderWidth: 2,
-        color:       '#000',
-        font:        'Helvetica-Bold',
-        fontSize:    14,
-        text:        'Brian'
-      }],
-      width: 150 // or 0.25 for 25% of the table's width
-    }]);
-    ```
-
-    @method constructor
-    @param {Array} columns
-    @param {Object} options
+   * @param {Array} columns Columns for the table
+   * @param {Object} options Options for formatting and styling the table
+   * @param {string} options.cellAlign=left Align text in the cell
+   * @param {boolean} options.cellAllowWrap=false Allow cell wrapping
+   * @param {number} options.cellBorderWidth=1 Cell border width
+   * @param {string} options.cellColor=#222 Cell text color
+   * @param {string} options.cellEmptyColor=#FFFFFF Empty cell color
+   * @param {string} options.cellEmptyText=none Empty cell text content
+   * @param {string} options.cellFont=Helvetica Cell font style
+   * @param {number} options.cellFontSize=14 Cell font size
+   * @param {boolean} options.cellItalic=false Cell is italicized
+   * @param {boolean} options.headerAllowWrap=false Allow the header to wrap
+   * @param {string} options.headerAlign=left Align text in the row header
+   * @param {string} options.headerColor=#000 Row header text color
+   * @param {{ bottom: number, left: number, right: number, top: number}} options.margins Table margins
   */
   constructor(columns = [], options = {}) {
     this.cellAlign = options.cellAlign || 'left';
@@ -98,7 +112,6 @@ export default class PDFTable {
 
   /**
     Add a table to the PDF document.
-    @method addToPDF
     @param {PDFBuilder} builder
   */
   addToPDF(builder) {
@@ -122,7 +135,7 @@ export default class PDFTable {
 
   /**
     Returns the full width of the table based on the page size and margins.
-    @return {Number}
+    @return {number}
   */
   width() {
     return this.builder.contentWidth();
@@ -131,7 +144,6 @@ export default class PDFTable {
 
   /**
     Ouput a column from the table to the PDF.
-    @method _addColumn
     @param {Object} column
     @private
   */
@@ -153,7 +165,6 @@ export default class PDFTable {
 
   /**
     Ouput the column header to the PDF.
-    @method _addHeader
     @param {Object} column
     @param {Number} width
     @private
@@ -300,7 +311,6 @@ export default class PDFTable {
 
   /**
     Ouput the column header to the PDF.
-    @method _columnWidth
     @param {Number} width
     @return {Number}
     @private
@@ -331,3 +341,5 @@ export default class PDFTable {
     return fontSize * 1.07;
   }
 }
+
+export default PDFTable;
