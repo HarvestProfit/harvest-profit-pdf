@@ -6,11 +6,11 @@
 
 To add this, simply run:
 ```bash
-npm install harvest-profit-units
+npm install harvest-profit-pdf
 ```
 Or
 ```bash
-yarn add harvest-profit-units
+yarn add harvest-profit-pdf
 ```
 
 ## Usage
