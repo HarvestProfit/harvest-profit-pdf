@@ -1,9 +1,9 @@
 {
   "name": "harvest-profit-pdf",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Generates PDFs for Harvest Profit",
   "main": "dist/index.js",
-  "repository": "https://github.com/HarvetProfit/harvest-profit-pdf",
+  "repository": "https://github.com/HarvestProfit/harvest-profit-pdf",
   "author": "Jaryd Krishnan <jaryd@harvestprofit.com>",
   "license": "MIT",
   "private": false,
