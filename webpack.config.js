@@ -9,6 +9,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index.js',
+    library: 'harvest-profit-pdf',
+    libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
   },
   /* We don't need `fs`, so we pretend it doesn't exist */

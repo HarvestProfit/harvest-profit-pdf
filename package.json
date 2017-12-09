@@ -8,8 +8,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
+    "docs": "jsdoc src/* --configure jsdoc.conf.json --destination docs --readme README.md",
     "build": "webpack --config webpack.config.js --progress --profile -p",
-    "clean": "rm -rf ./dist"
+    "clean": "rm -rf ./dist",
+    "clean-docs": "rm -rf ./docs"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -24,6 +26,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
+    "jsdoc": "^3.5.5",
     "uglifyjs-webpack-plugin": "^1.1.2",
     "webpack": "^3.10.0"
   },

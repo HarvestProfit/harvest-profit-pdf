@@ -7,21 +7,18 @@ cache:
   directories:
   - node_modules
 script:
-  - yarn run test
   - yarn run build
-after_script:
-  - yarn run report-coverage
-# before_deploy:
-#   - yarn run styleguide:build
-# deploy:
-#   - provider: pages
-#     email: awesome@harvestprofit.com
-#     github_token: $GITHUB_TOKEN
-#     local_dir: styleguide
-#     name: Harvest Profit
-#     on:
-#       branch: master
-#     skip_cleanup: true
+before_deploy:
+  - yarn run docs
+deploy:
+  - provider: pages
+    email: awesome@harvestprofit.com
+    github_token: $GITHUB_TOKEN
+    local_dir: docs
+    name: Harvest Profit
+    on:
+      branch: master
+    skip_cleanup: true
 branches:
   only:
   - master
