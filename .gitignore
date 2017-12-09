@@ -1,6 +1,9 @@
 # Dist
 dist
 
+# Docs
+docs
+
 # Logs
 logs
 *.log
@@ -59,3 +62,4 @@ typings/
 
 # dotenv environment variables file
 .env
+.DS_Store
