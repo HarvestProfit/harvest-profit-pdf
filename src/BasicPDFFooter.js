@@ -3,14 +3,6 @@
  */
 class BasicPDFFooter {
   constructor(options) {
-    if (options.includePagination !== undefined &&
-        options.includePagination !== null &&
-        options.includePagination === false) {
-      this.includePagination = false;
-    } else {
-      this.includePagination = true;
-      this.currentPage = 1;
-    }
     this.data = options.data || [];
     if (!Array.isArray(this.data)) {
       this.data = [this.data];
@@ -63,7 +55,7 @@ class BasicPDFFooter {
     this.docTitle = pdfBuilder.title;
     this.pdfBuilder = pdfBuilder;
     this.addFooterData();
-    if (this.includePagination) {
+    if (this.pdfBuilder.includePageNumber) {
       this.addPagination();
     }
   }

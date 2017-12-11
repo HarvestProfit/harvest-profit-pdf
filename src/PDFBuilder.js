@@ -29,13 +29,18 @@ class PDFBuilder {
    */
   constructor(options = {}) {
     this.title = options.title || '';
+    this.metadata = options.metadata || {};
 
     this.doc = new PDFDocument({
       autoFirstPage: false,
       bufferPages: true,
     });
 
-    this.doc.info.Title = this.title;
+    let documentTitle = this.title;
+    if (this.metadata.year)
+      documentTitle = `${this.metadata.year} ${documentTitle}`;
+
+    this.doc.info.Title = documentTitle;
     this.doc.info.Producer = 'Harvest Profit';
     this.doc.info.Creator = 'Harvest Profit';
 
@@ -43,8 +48,7 @@ class PDFBuilder {
 
     this.header = options.header;
     this.footer = options.footer;
-    this.title = options.title || '';
-    this.includePageNumber = options.includePageNumber || true;
+    this.includePageNumber = (typeof options.includePageNumber === 'undefined') ? true : options.includePageNumber;
     this.headingFont = options.headingFont || 'Helvetica-Bold';
     this.headingFontSize = options.headingFontSize || 16;
     this.headingFontColor = options.headingFontColor || '#000000';

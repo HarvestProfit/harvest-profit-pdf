@@ -5,15 +5,6 @@ import logoPath from './logo';
  */
 class HarvestProfitPDFFooter {
   constructor(options) {
-    if (options.includePagination !== undefined &&
-        options.includePagination !== null &&
-        options.includePagination === false) {
-      this.includePagination = false;
-    } else {
-      this.includePagination = true;
-      this.currentPage = 1;
-    }
-
     this.message = options.message;
   }
 
@@ -68,7 +59,7 @@ class HarvestProfitPDFFooter {
     this.docTitle = pdfBuilder.title;
     this.pdfBuilder = pdfBuilder;
     this.addLogo();
-    if (this.includePagination) {
+    if (this.pdfBuilder.includePageNumber) {
       this.addPagination();
     }
     this.addCenterMessage();

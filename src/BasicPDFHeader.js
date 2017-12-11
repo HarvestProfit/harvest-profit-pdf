@@ -2,16 +2,7 @@
  * Generates a basic PDF Header
  */
 class BasicPDFHeader {
-  constructor(options, year) {
-    this.year = year;
-    if (options.includePagination !== undefined &&
-        options.includePagination !== null &&
-        options.includePagination === false) {
-      this.includePagination = false;
-    } else {
-      this.includePagination = true;
-      this.currentPage = 1;
-    }
+  constructor(options) {
     this.data = options.data || [];
     if (!Array.isArray(this.data)) {
       this.data = [this.data];
@@ -46,16 +37,17 @@ class BasicPDFHeader {
   }
 
   addYear() {
-    const { doc, margins } = this.pdfBuilder;
+    const { doc, margins, metadata } = this.pdfBuilder;
     doc.font('Helvetica-Bold');
     doc.fontSize(18);
-    doc.text(this.year, doc.page.width - margins.left - margins.right - 12, margins.top);
+    doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
   }
 
   onPageAdded(pdfBuilder) {
     this.pdfBuilder = pdfBuilder;
     this.addHeaderData();
-    this.addYear();
+    if (this.pdfBuilder.metadata.year)
+      this.addYear();
   }
 }
 

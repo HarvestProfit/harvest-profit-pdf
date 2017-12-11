@@ -7,7 +7,7 @@ import saveAs from 'save-as';
 
 export default function generate() {
   const builder = new PDFBuilder({
-    header: new HarvestProfitPDFHeader(2017),
+    header: new HarvestProfitPDFHeader(),
     footer: new HarvestProfitPDFFooter({
       message: 'Something here',
     }),
@@ -21,6 +21,9 @@ export default function generate() {
     subHeadingFontSize: 10,
     includePageNumber: true,
     title: 'Harvest Profit Is Awesome',
+    metadata: {
+      year: 2017
+    }
   });
 
   builder.generateBlob().then((blob) => {
