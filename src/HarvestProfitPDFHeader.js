@@ -4,13 +4,16 @@ import logoPath from './logo';
  * Generates a HarvestProfit themed PDF header.
  */
 class HarvestProfitPDFHeader {
-  constructor() {}
-
   /**
    * Adds the Harvest Profit Logo to the header.
    */
   addLogo() {
-    const { doc, margins } = this.pdfBuilder;
+    const {
+      doc,
+      margins,
+      documentFont,
+      documentBoldFont,
+    } = this.pdfBuilder;
 
     // Add Logo Mark
     doc.save();
@@ -21,10 +24,10 @@ class HarvestProfitPDFHeader {
     doc.restore();
 
     // Add Logo Text
-    doc.font('Helvetica-Bold');
+    doc.font(documentBoldFont);
     doc.fontSize(18);
     doc.text('HARVEST', margins.left + 26, margins.top);
-    doc.font('Helvetica');
+    doc.font(documentFont);
     doc.text('profit', margins.left + 112, margins.top);
   }
 
@@ -33,9 +36,14 @@ class HarvestProfitPDFHeader {
    */
   addYear() {
     if (this.pdfBuilder.metadata.year) {
-      const { doc, margins, metadata } = this.pdfBuilder;
+      const {
+        doc,
+        margins,
+        metadata,
+        documentBoldFont,
+      } = this.pdfBuilder;
 
-      doc.font('Helvetica-Bold');
+      doc.font(documentBoldFont);
       doc.fontSize(18);
       doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
     }

@@ -74,7 +74,7 @@ class PDFTable {
    * @param {boolean} options.headerAllowWrap=false Allow the header to wrap
    * @param {string} options.headerAlign=left Align text in the row header
    * @param {string} options.headerColor=#000 Row header text color
-   * @param {{ bottom: number, left: number, right: number, top: number}} options.margins Table margins
+   * @param {Margin} options.margins Table margins
   */
   constructor(columns = [], options = {}) {
     this.cellAlign = options.cellAlign || 'left';

@@ -2,16 +2,20 @@
  * Generates a basic PDF footer
  */
 class BasicPDFFooter {
-  constructor() {}
-
   /**
    * Adds metadata tags to the footer.
    */
   addTags() {
-    const { doc, margins, metadata } = this.pdfBuilder;
+    const {
+      doc,
+      margins,
+      metadata,
+      documentFont,
+      documentBoldFont,
+    } = this.pdfBuilder;
     const fontSize = 9;
     let lineHeight = this.data.length - 1;
-    doc.font('Helvetica');
+    doc.font(documentFont);
     doc.fontSize(fontSize);
 
     for (let i = 0; i < metadata.tags.length; i += 1) {
@@ -23,12 +27,12 @@ class BasicPDFFooter {
         lineHeight -= 1;
       } else if (typeof metadata.tags[i] === 'object' && metadata.tags[i].value !== undefined && metadata.tags[i].label !== undefined) {
         doc
-          .font('Helvetica-Bold')
+          .font(documentBoldFont)
           .text(`${metadata.tags[i].label}:`,
             margins.left,
             (this.height + margins.bottom) - (lineHeight * fontSize),
             { lineBreak: false })
-          .font('Helvetica')
+          .font(documentFont)
           .text(metadata.tags[i].value);
         lineHeight -= 1;
       }

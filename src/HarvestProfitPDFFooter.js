@@ -6,7 +6,7 @@ import logoPath from './logo';
 class HarvestProfitPDFFooter {
   /**
    * @param {Object} options The options used to build the PDF Footer
-   * @param {string} options.message= The message to be inserted into the center of the footer
+   * @param {string} options.message The message to be inserted into the center of the footer
    */
   constructor(options) {
     this.message = options.message;
@@ -16,7 +16,12 @@ class HarvestProfitPDFFooter {
    * Adds the Harvest Profit Logo to the footer.
    */
   addLogo() {
-    const { doc, margins } = this.pdfBuilder;
+    const {
+      doc,
+      margins,
+      documentFont,
+      documentBoldFont,
+    } = this.pdfBuilder;
 
     // Add Logo Mark
     doc.save();
@@ -27,11 +32,11 @@ class HarvestProfitPDFFooter {
     doc.restore();
 
     // Add Logo Text
-    doc.font('Helvetica-Bold');
+    doc.font(documentBoldFont);
     doc.fontSize(16);
     doc.text('HARVEST', margins.left + 18, (this.height + margins.bottom) - 3, {
       lineBreak: false,
-    }).font('Helvetica').text('profit');
+    }).font(documentFont).text('profit');
   }
 
   /**

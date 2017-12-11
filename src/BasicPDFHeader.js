@@ -2,20 +2,24 @@
  * Generates a basic PDF Header
  */
 class BasicPDFHeader {
-  constructor() {}
-
   /**
    * Adds metadata tags to the header.
    */
   addTags() {
-    const { doc, margins, metadata } = this.pdfBuilder;
+    const {
+      doc,
+      margins,
+      metadata,
+      documentFont,
+      documentBoldFont,
+    } = this.pdfBuilder;
     const fontSize = 11;
     let lineHeight = metadata.tags.length - 1;
     const contentHeight = margins.top + ((lineHeight + 1) * fontSize) + 10;
     const minHeight = margins.top + 30;
 
     this.height = contentHeight > minHeight ? contentHeight : minHeight;
-    doc.font('Helvetica');
+    doc.font(documentFont);
     doc.fontSize(fontSize);
 
     for (let i = 0; i < metadata.tags.length; i += 1) {
@@ -26,9 +30,9 @@ class BasicPDFHeader {
                   metadata.tags[i].value !== undefined &&
                   metadata.tags[i].label !== undefined) {
         doc
-          .font('Helvetica-Bold')
+          .font(documentBoldFont)
           .text(`${metadata.tags[i].label}: `, margins.left, margins.top + (lineHeight * fontSize), { lineBreak: false })
-          .font('Helvetica').text(metadata.tags[i].value);
+          .font(documentFont).text(metadata.tags[i].value);
         lineHeight -= 1;
       }
     }
@@ -40,8 +44,13 @@ class BasicPDFHeader {
    */
   addYear() {
     if (this.pdfBuilder.metadata.year) {
-      const { doc, margins, metadata } = this.pdfBuilder;
-      doc.font('Helvetica-Bold');
+      const {
+        doc,
+        margins,
+        metadata,
+        documentBoldFont,
+      } = this.pdfBuilder;
+      doc.font(documentBoldFont);
       doc.fontSize(18);
       doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
     }

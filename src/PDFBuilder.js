@@ -15,18 +15,20 @@ eslint no-underscore-dangle: ["error", {
 class PDFBuilder {
   /**
    * @param {Object} options The options used to build the PDF
-   * @param {string} options.title= The title of the document
+   * @param {string} options.title The title of the document
    * @param {boolean} options.includePageNumber=true Document includes page numbers
-   * @param {string} options.headingFont=Helvetica-Bold The font style of the page heading
+   * @param {string} options.documentFont=Helvetica The default font style for document
+   * @param {string} options.documentBoldFont=Helvetica-Bold The default bold font style for document
+   * @param {string} options.headingFont=options.documentBoldFont The font style of the page heading
    * @param {number} options.headingFontSize=16 The heading font size
    * @param {number} options.headingLineGap=18 The heading line gap
-   * @param {string} options.subHeadingFont=Helvetica-Bold The font style of the subheading
+   * @param {string} options.subHeadingFont=options.documentBoldFont The font style of the subheading
    * @param {number} options.subHeadingFontSize=14 The subheading font size
    * @param {number} options.subHeadingLineGap=12 The subheading line gap
    * @param {( portrait | landscape )} options.layout=portrait The page layout style
    * @param {Margin} options.margin Margin of the page
    * @param {( letter )} options.size The size of the generated PDF
-   * @param {metadata} options.metadata Additional data to be stored on the object to be used in headers/footers/tables.
+   * @param {metadata} options.metadata Additional data stored on the object.
    */
   constructor(options = {}) {
     this.title = options.title || '';
@@ -38,8 +40,13 @@ class PDFBuilder {
     });
 
     let documentTitle = this.title;
-    if (this.metadata.year)
+    if (this.metadata.year) {
       documentTitle = `${this.metadata.year} ${documentTitle}`;
+    }
+
+    if (!this.metadata.filename) {
+      this.metadata.filename = `${documentTitle}.pdf`;
+    }
 
     this.doc.info.Title = documentTitle;
     this.doc.info.Producer = 'Harvest Profit';
@@ -49,12 +56,14 @@ class PDFBuilder {
 
     this.header = options.header;
     this.footer = options.footer;
+    this.documentFont = options.documentFont || 'Helvetica-Bold';
+    this.documentBoldFont = options.documentBoldFont || 'Helvetica-Bold';
     this.includePageNumber = (typeof options.includePageNumber === 'undefined') ? true : options.includePageNumber;
-    this.headingFont = options.headingFont || 'Helvetica-Bold';
+    this.headingFont = options.headingFont || this.documentBoldFont;
     this.headingFontSize = options.headingFontSize || 16;
     this.headingFontColor = options.headingFontColor || '#000000';
     this.headingLineGap = options.headingLineGap || 18;
-    this.subHeadingFont = options.subHeadingFont || 'Helvetica-Bold';
+    this.subHeadingFont = options.subHeadingFont || this.documentBoldFont;
     this.subHeadingFontSize = options.subHeadingFontSize || 14;
     this.subHeadingFontColor = options.subHeadingFontColor || '#000000';
     this.subHeadingLineGap = options.subHeadingLineGap || 12;
