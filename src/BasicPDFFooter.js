@@ -18,8 +18,7 @@ class BasicPDFFooter {
   }
 
   addFooterData() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
     const fontSize = 9;
     let lineHeight = this.data.length - 1;
     doc.font('Helvetica');
@@ -47,8 +46,7 @@ class BasicPDFFooter {
   }
 
   addPagination() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
     let text = this.currentPage;
     doc.fontSize(9);
 

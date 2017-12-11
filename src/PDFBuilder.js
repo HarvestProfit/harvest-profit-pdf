@@ -43,7 +43,13 @@ class PDFBuilder {
     this.subHeadingFontColor = options.subHeadingFontColor || '#000000';
     this.subHeadingLineGap = options.subHeadingLineGap || 12;
     this.layout = options.layout || 'portrait';
-    this.margins = options.margins || { bottom: 30, left: 30, right: 30, top: 30 };
+    const defaultMargins = {
+      bottom: 30,
+      left: 30,
+      right: 30,
+      top: 30,
+    };
+    this.margins = options.margins || defaultMargins;
     this.size = options.size || 'letter';
 
     if (this.header != null) {
@@ -98,10 +104,10 @@ class PDFBuilder {
   addHeading(text) {
     this.addPageIfNeeded();
 
-    const doc = this.doc;
+    const { doc } = this;
     const lineGap = this.headingLineGap;
     const x = this.pageLeft();
-    const y = doc.y;
+    const { y } = doc;
 
     doc.font(this.headingFont);
     doc.fontSize(this.headingFontSize);
@@ -116,10 +122,10 @@ class PDFBuilder {
   addSubHeading(text) {
     this.addPageIfNeeded();
 
-    const doc = this.doc;
+    const { doc } = this;
     const lineGap = this.subHeadingLineGap;
     const x = this.pageLeft();
-    const y = doc.y;
+    const { y } = doc;
 
     doc.font(this.subHeadingFont);
     doc.fontSize(this.subHeadingFontSize);
@@ -164,8 +170,7 @@ class PDFBuilder {
     @return {Promise}
   */
   generateBlob() {
-    const doc = this.doc;
-    const stream = this.stream;
+    const { doc, stream } = this;
 
     return new Promise((resolve) => {
       doc.flushPages();
@@ -188,8 +193,7 @@ class PDFBuilder {
   * @return {Promise}
   */
   generateBlobURL() {
-    const doc = this.doc;
-    const stream = this.stream;
+    const { doc, stream } = this;
 
     return new Promise((resolve) => {
       doc.flushPages();
@@ -228,7 +232,7 @@ class PDFBuilder {
 
   _setupHeader() {
     const builder = this;
-    const header = this.header;
+    const { header } = this;
 
     this.doc.on('pageAdded', () => {
       header.onPageAdded(builder);
@@ -237,7 +241,7 @@ class PDFBuilder {
 
   _setupFooter() {
     const builder = this;
-    const footer = this.footer;
+    const { footer } = this;
 
     this.doc.on('pageAdded', () => {
       builder.currentPage += 1;

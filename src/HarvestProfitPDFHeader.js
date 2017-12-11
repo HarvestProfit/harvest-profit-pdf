@@ -9,8 +9,7 @@ class HarvestProfitPDFHeader {
   }
 
   addLogo() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
 
     // Add Logo Mark
     doc.save();
@@ -29,8 +28,7 @@ class HarvestProfitPDFHeader {
   }
 
   addYear() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
 
     doc.font('Helvetica-Bold');
     doc.fontSize(18);
