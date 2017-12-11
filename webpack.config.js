@@ -13,10 +13,6 @@ module.exports = {
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
   },
-  /* We don't need `fs`, so we pretend it doesn't exist */
-  node: {
-    fs: 'empty',
-  },
   /* We use uglifyjs to compile/minify our gargantuan bundle from this project */
   plugins: [
     new UglifyJSPlugin({
@@ -26,6 +22,14 @@ module.exports = {
   /* We use babel-loader to replicate the .babelrc file in webpack */
   module: {
     rules: [
+      {
+        loader: 'transform-loader?brfs',
+        test: /node_modules\/(pdfkit|fontkit|png-js|linebreak|unicode-properties|brotli)\//,
+      },
+      {
+        test: /node_modules\/unicode-properties.*\.json$/,
+        use: 'json-loader',
+      },
       {
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
