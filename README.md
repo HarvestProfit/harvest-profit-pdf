@@ -2,7 +2,7 @@
   <img src="https://www.harvestprofit.com/logo.png" alt="Harvest Profit"></img>
 </div>
 
-[![Build Status](https://travis-ci.org/HarvestProfit/harvest-profit-pdf.svg?branch=master)](https://travis-ci.org/HarvestProfit/harvest-profit-pdf) [![npm](https://img.shields.io/npm/l/harvest-profit-pdf.svg)](https://github.com/HarvestProfit/harvest-profit-ui/blob/master/LICENSE.md)
+[![NPM Version](https://img.shields.io/npm/v/harvest-profit-pdf.svg)](https://www.npmjs.com/package/harvest-profit-pdf) [![Build Status](https://travis-ci.org/HarvestProfit/harvest-profit-pdf.svg?branch=master)](https://travis-ci.org/HarvestProfit/harvest-profit-pdf) [![MIT License](https://img.shields.io/npm/l/harvest-profit-pdf.svg)](https://github.com/HarvestProfit/harvest-profit-pdf/blob/master/LICENSE.md)
 
 ## Installation
 
