@@ -1,6 +1,9 @@
 import logoPath from './logo';
 
-export default class HarvestProfitPDFHeader {
+/**
+ * Generates a HarvestProfit themed PDF header.
+ */
+class HarvestProfitPDFHeader {
   constructor(year) {
     this.year = year;
   }
@@ -41,3 +44,5 @@ export default class HarvestProfitPDFHeader {
     this.addYear();
   }
 }
+
+export default HarvestProfitPDFHeader;
