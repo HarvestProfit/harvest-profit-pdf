@@ -13,6 +13,12 @@
     "clean": "rm -rf ./dist",
     "clean-docs": "rm -rf ./docs"
   },
+  "files": [
+    "LICENSE.md",
+    "README.md",
+    "src",
+    "dist"
+  ],
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
