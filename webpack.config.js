@@ -10,6 +10,8 @@ module.exports = {
   output: {
     filename: 'index.js',
     library: 'HarvestProfitPdf',
+    libraryTarget: 'umd',
+    umdNamedDefine: true,
     path: path.resolve(__dirname, 'dist'),
   },
   /* We use uglifyjs to compile/minify our gargantuan bundle from this project */
