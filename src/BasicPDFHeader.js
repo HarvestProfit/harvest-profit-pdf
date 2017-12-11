@@ -22,17 +22,19 @@ class BasicPDFHeader {
     doc.font(documentFont);
     doc.fontSize(fontSize);
 
-    for (let i = 0; i < metadata.tags.length; i += 1) {
-      if (typeof metadata.tags[i] === 'string') {
-        doc.text(metadata.tags[i], margins.left, margins.top + (lineHeight * fontSize));
+    const tags = metadata.tags || [];
+
+    for (let i = 0; i < tags.length; i += 1) {
+      if (typeof tags[i] === 'string') {
+        doc.text(tags[i], margins.left, margins.top + (lineHeight * fontSize));
         lineHeight -= 1;
-      } else if (typeof metadata.tags[i] === 'object' &&
-                  metadata.tags[i].value !== undefined &&
-                  metadata.tags[i].label !== undefined) {
+      } else if (typeof tags[i] === 'object' &&
+                  tags[i].value !== undefined &&
+                  tags[i].label !== undefined) {
         doc
           .font(documentBoldFont)
-          .text(`${metadata.tags[i].label}: `, margins.left, margins.top + (lineHeight * fontSize), { lineBreak: false })
-          .font(documentFont).text(metadata.tags[i].value);
+          .text(`${tags[i].label}: `, margins.left, margins.top + (lineHeight * fontSize), { lineBreak: false })
+          .font(documentFont).text(tags[i].value);
         lineHeight -= 1;
       }
     }
