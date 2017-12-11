@@ -14,7 +14,7 @@ import PDFTable from './PDFTable';
  * @property {number} top Top margin
  */
 
-export default {
+export {
   BasicPDFFooter,
   BasicPDFHeader,
   HarvestProfitPDFFooter,
