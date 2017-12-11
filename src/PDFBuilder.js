@@ -15,6 +15,17 @@ eslint no-underscore-dangle: ["error", {
 class PDFBuilder {
   /**
    * @param {Object} options The options used to build the PDF
+   * @param {string} options.title= The title of the document
+   * @param {boolean} options.includePageNumber=true Document includes page numbers
+   * @param {string} options.headingFont=Helvetica-Bold The font style of the page heading
+   * @param {number} options.headingFontSize=16 The heading font size
+   * @param {number} options.headingLineGap=18 The heading line gap
+   * @param {string} options.subHeadingFont=Helvetica-Bold The font style of the subheading
+   * @param {number} options.subHeadingFontSize=14 The subheading font size
+   * @param {number} options.subHeadingLineGap=12 The subheading line gap
+   * @param {( portrait | landscape )} options.layout=portrait The page layout style
+   * @param {Margin} options.margin Margin of the page
+   * @param {( letter )} options.size The size of the generated PDF
    */
   constructor(options = {}) {
     this.title = options.title || '';
@@ -77,9 +88,9 @@ class PDFBuilder {
 
   /**
   * Adds a new page to the PDF document if close to the end of the content area.
-  * @param {number} currentPage
-  * @param {number} pageCount
-  * @return {boolean}
+  * @param {number} currentPage The current page of the document
+  * @param {number} pageCount The number of pages
+  * @return {boolean} Was a new page added
   */
   addPageIfNeeded(currentPage, pageCount) {
     if (this.doc.y / this.contentHeight() > 0.95) {
@@ -117,7 +128,7 @@ class PDFBuilder {
 
   /**
   * Add a sub heading to the PDF document.
-  * @param {String} text
+  * @param {String} text The subheading text to add
   */
   addSubHeading(text) {
     this.addPageIfNeeded();
@@ -135,7 +146,7 @@ class PDFBuilder {
 
   /**
   * Add a table to the PDF document.
-  * @param {PDFTable} table
+  * @param {PDFTable} table The table to add to the PDF
   */
   addTable(table) {
     this.addPageIfNeeded();
@@ -153,7 +164,7 @@ class PDFBuilder {
 
   /**
   * Returns the width of the page inside the page margins.
-  * @return {number}
+  * @return {number} The width of the page inside the page margins
   */
   contentWidth() {
     return this.doc.page.width - this.margins.left - this.margins.right;
@@ -167,7 +178,7 @@ class PDFBuilder {
   * pdfBuilder.generateBlob().then(function(blob) {
   *   saveAs(blob, 'document.pdf');
   * });
-    @return {Promise}
+    @return {Promise} Resolves when the PDF has been generated
   */
   generateBlob() {
     const { doc, stream } = this;
@@ -190,7 +201,7 @@ class PDFBuilder {
   * pdfBuilder.generateBlobURL().then(function(url) {
   *   $('iframe')[0].src = url;
   * });
-  * @return {Promise}
+  * @return {Promise} Resolves when the PDF Url has been generated
   */
   generateBlobURL() {
     const { doc, stream } = this;
@@ -208,7 +219,7 @@ class PDFBuilder {
 
   /**
   * Returns the position of the left edge of the page based on left margin.
-  * @return {number}
+  * @return {number} The position of the left edge of the page
   */
   pageLeft() {
     return this.margins.left;
@@ -216,7 +227,7 @@ class PDFBuilder {
 
   /**
   * Returns the position of the right edge of the page based on the width and right margin.
-  * @return {number}
+  * @return {number} The position of the right edge of the page
   */
   pageRight() {
     return this.doc.page.width - this.margins.right;
