@@ -9,7 +9,7 @@
   "private": false,
   "scripts": {
     "docs": "jsdoc src/* --configure jsdoc.conf.json --destination docs --readme README.md",
-    "build": "webpack --config webpack.config.js --progress --profile -p",
+    "build": "rm -rf ./dist && webpack --config webpack.config.js --progress --profile -p",
     "clean": "rm -rf ./dist",
     "clean-docs": "rm -rf ./docs"
   },
