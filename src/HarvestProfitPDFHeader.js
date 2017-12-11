@@ -6,6 +6,9 @@ import logoPath from './logo';
 class HarvestProfitPDFHeader {
   constructor() {}
 
+  /**
+   * Adds the Harvest Profit Logo to the header.
+   */
   addLogo() {
     const { doc, margins } = this.pdfBuilder;
 
@@ -25,20 +28,28 @@ class HarvestProfitPDFHeader {
     doc.text('profit', margins.left + 112, margins.top);
   }
 
+  /**
+   * Adds the year to the header if provided in metadata.
+   */
   addYear() {
-    const { doc, margins, metadata } = this.pdfBuilder;
+    if (this.pdfBuilder.metadata.year) {
+      const { doc, margins, metadata } = this.pdfBuilder;
 
-    doc.font('Helvetica-Bold');
-    doc.fontSize(18);
-    doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
+      doc.font('Helvetica-Bold');
+      doc.fontSize(18);
+      doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
+    }
   }
 
+  /**
+   * Hook called by a PDFBuilder object when a new page is added.
+   * @param {PDFBuilder} pdfBuilder The pdf builder object to add to.
+   */
   onPageAdded(pdfBuilder) {
     this.height = pdfBuilder.margins.top + 30;
     this.pdfBuilder = pdfBuilder;
     this.addLogo();
-    if (this.pdfBuilder.metadata.year)
-      this.addYear();
+    this.addYear();
   }
 }
 

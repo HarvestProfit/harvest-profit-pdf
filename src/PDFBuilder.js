@@ -26,6 +26,7 @@ class PDFBuilder {
    * @param {( portrait | landscape )} options.layout=portrait The page layout style
    * @param {Margin} options.margin Margin of the page
    * @param {( letter )} options.size The size of the generated PDF
+   * @param {metadata} options.metadata Additional data to be stored on the object to be used in headers/footers/tables.
    */
   constructor(options = {}) {
     this.title = options.title || '';
@@ -182,7 +183,7 @@ class PDFBuilder {
   * pdfBuilder.generateBlob().then(function(blob) {
   *   saveAs(blob, 'document.pdf');
   * });
-    @return {Promise} Resolves when the PDF has been generated
+  * @return {Promise} Resolves when the PDF has been generated
   */
   generateBlob() {
     const { doc, stream } = this;

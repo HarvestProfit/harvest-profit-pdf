@@ -2,17 +2,15 @@
  * Generates a basic PDF Header
  */
 class BasicPDFHeader {
-  constructor(options) {
-    this.data = options.data || [];
-    if (!Array.isArray(this.data)) {
-      this.data = [this.data];
-    }
-  }
+  constructor() {}
 
-  addHeaderData() {
-    const { doc, margins } = this.pdfBuilder;
+  /**
+   * Adds metadata tags to the header.
+   */
+  addTags() {
+    const { doc, margins, metadata } = this.pdfBuilder;
     const fontSize = 11;
-    let lineHeight = this.data.length - 1;
+    let lineHeight = metadata.tags.length - 1;
     const contentHeight = margins.top + ((lineHeight + 1) * fontSize) + 10;
     const minHeight = margins.top + 30;
 
@@ -20,34 +18,42 @@ class BasicPDFHeader {
     doc.font('Helvetica');
     doc.fontSize(fontSize);
 
-    for (let i = 0; i < this.data.length; i += 1) {
-      if (typeof this.data[i] === 'string') {
-        doc.text(this.data[i], margins.left, margins.top + (lineHeight * fontSize));
+    for (let i = 0; i < metadata.tags.length; i += 1) {
+      if (typeof metadata.tags[i] === 'string') {
+        doc.text(metadata.tags[i], margins.left, margins.top + (lineHeight * fontSize));
         lineHeight -= 1;
-      } else if (typeof this.data[i] === 'object' &&
-                  this.data[i].value !== undefined &&
-                  this.data[i].label !== undefined) {
+      } else if (typeof metadata.tags[i] === 'object' &&
+                  metadata.tags[i].value !== undefined &&
+                  metadata.tags[i].label !== undefined) {
         doc
           .font('Helvetica-Bold')
-          .text(`${this.data[i].label}: `, margins.left, margins.top + (lineHeight * fontSize), { lineBreak: false })
-          .font('Helvetica').text(this.data[i].value);
+          .text(`${metadata.tags[i].label}: `, margins.left, margins.top + (lineHeight * fontSize), { lineBreak: false })
+          .font('Helvetica').text(metadata.tags[i].value);
         lineHeight -= 1;
       }
     }
   }
 
+  /**
+   * Adds the year to the header if provided in metadata.
+   * @param {PDFBuilder} pdfBuilder The pdf builder object to add to.
+   */
   addYear() {
-    const { doc, margins, metadata } = this.pdfBuilder;
-    doc.font('Helvetica-Bold');
-    doc.fontSize(18);
-    doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
+    if (this.pdfBuilder.metadata.year) {
+      const { doc, margins, metadata } = this.pdfBuilder;
+      doc.font('Helvetica-Bold');
+      doc.fontSize(18);
+      doc.text(metadata.year, doc.page.width - margins.left - margins.right - 12, margins.top);
+    }
   }
 
+  /**
+   * Hook called by a PDFBuilder object when a new page is added.
+   */
   onPageAdded(pdfBuilder) {
     this.pdfBuilder = pdfBuilder;
-    this.addHeaderData();
-    if (this.pdfBuilder.metadata.year)
-      this.addYear();
+    this.addTags();
+    this.addYear();
   }
 }
 

@@ -4,10 +4,17 @@ import logoPath from './logo';
  * Generates a HarvestProfit themed PDF footer.
  */
 class HarvestProfitPDFFooter {
+  /**
+   * @param {Object} options The options used to build the PDF Footer
+   * @param {string} options.message= The message to be inserted into the center of the footer
+   */
   constructor(options) {
     this.message = options.message;
   }
 
+  /**
+   * Adds the Harvest Profit Logo to the footer.
+   */
   addLogo() {
     const { doc, margins } = this.pdfBuilder;
 
@@ -27,20 +34,28 @@ class HarvestProfitPDFFooter {
     }).font('Helvetica').text('profit');
   }
 
+  /**
+   * Adds the page number to the footer if enabled.
+   */
   addPagination() {
-    const { doc, margins } = this.pdfBuilder;
-    let text = this.currentPage;
-    doc.fontSize(9);
+    if (this.pdfBuilder.includePageNumber) {
+      const { doc, margins } = this.pdfBuilder;
+      let text = this.currentPage;
+      doc.fontSize(9);
 
-    if (this.docTitle.length > 0) {
-      text = `${this.docTitle} - ${text}`;
+      if (this.docTitle.length > 0) {
+        text = `${this.docTitle} - ${text}`;
+      }
+      doc.text(text, margins.left, this.height + margins.bottom, {
+        align: 'right',
+        width: this.width,
+      });
     }
-    doc.text(text, margins.left, this.height + margins.bottom, {
-      align: 'right',
-      width: this.width,
-    });
   }
 
+  /**
+   * Adds a small message in the center of the footer.
+   */
   addCenterMessage() {
     if (this.message) {
       const { doc, margins } = this.pdfBuilder;
@@ -52,6 +67,10 @@ class HarvestProfitPDFFooter {
     }
   }
 
+  /**
+   * Hook called by a PDFBuilder object when a new page is added.
+   * @param {PDFBuilder} pdfBuilder The pdf builder object to add to.
+   */
   onPageAdded(pdfBuilder) {
     this.width = pdfBuilder.doc.page.width - pdfBuilder.margins.left - pdfBuilder.margins.right;
     this.height = pdfBuilder.doc.page.height - pdfBuilder.margins.top - pdfBuilder.margins.bottom;
@@ -59,9 +78,7 @@ class HarvestProfitPDFFooter {
     this.docTitle = pdfBuilder.title;
     this.pdfBuilder = pdfBuilder;
     this.addLogo();
-    if (this.pdfBuilder.includePageNumber) {
-      this.addPagination();
-    }
+    this.addPagination();
     this.addCenterMessage();
   }
 }
