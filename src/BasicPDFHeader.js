@@ -19,8 +19,7 @@ class BasicPDFHeader {
   }
 
   addHeaderData() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
     const fontSize = 11;
     let lineHeight = this.data.length - 1;
     const contentHeight = margins.top + ((lineHeight + 1) * fontSize) + 10;
@@ -47,8 +46,7 @@ class BasicPDFHeader {
   }
 
   addYear() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
     doc.font('Helvetica-Bold');
     doc.fontSize(18);
     doc.text(this.year, doc.page.width - margins.left - margins.right - 12, margins.top);

@@ -9,7 +9,7 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'index.js',
-    library: 'harvest-profit-pdf',
+    library: 'HarvestProfitPdf',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist'),
   },

@@ -18,8 +18,7 @@ class HarvestProfitPDFFooter {
   }
 
   addLogo() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
 
     // Add Logo Mark
     doc.save();
@@ -38,8 +37,7 @@ class HarvestProfitPDFFooter {
   }
 
   addPagination() {
-    const doc = this.pdfBuilder.doc;
-    const margins = this.pdfBuilder.margins;
+    const { doc, margins } = this.pdfBuilder;
     let text = this.currentPage;
     doc.fontSize(9);
 
@@ -54,8 +52,7 @@ class HarvestProfitPDFFooter {
 
   addCenterMessage() {
     if (this.message) {
-      const doc = this.pdfBuilder.doc;
-      const margins = this.pdfBuilder.margins;
+      const { doc, margins } = this.pdfBuilder;
       doc.fontSize(7);
       doc.text(this.message, margins.left, this.height + margins.bottom, {
         align: 'center',

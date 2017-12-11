@@ -92,7 +92,13 @@ class PDFTable {
     this.headerFont = options.headerFont || 'Helvetica-Bold';
     this.headerItalic = options.headerItalic || false;
     this.headerFontSize = options.headerFontSize || 14;
-    this.margins = options.margins || { bottom: 30, left: 0, right: 0, top: 0 };
+    const defaultMargins = {
+      bottom: 30,
+      left: 0,
+      right: 0,
+      top: 0,
+    };
+    this.margins = options.margins || defaultMargins;
 
     this.cellEmptyColor = options.cellEmptyColor || '#FFFFFF';
     this.cellEmptyFontSize = options.cellEmptyFontSize || this.cellFontSize;
@@ -115,7 +121,7 @@ class PDFTable {
     @param {PDFBuilder} builder
   */
   addToPDF(builder) {
-    const doc = builder.doc;
+    const { doc } = builder;
 
     this.builder = builder;
     this.currentPage = doc.bufferedPageRange().count - 1;
@@ -170,8 +176,8 @@ class PDFTable {
     @private
   */
   _addHeader(column) {
-    const doc = this.builder.doc;
-    const header = column.header;
+    const { doc } = this.builder;
+    const { header } = column;
     const align = header.align || this.headerAlign;
     const borderColor = header.borderColor || this.headerBorderColor;
     // const borderStyle = header.borderStyle || this.headerBorderStyle;
@@ -183,7 +189,7 @@ class PDFTable {
     const lineGap = this._headerLineGap(header);
     const position = this.currentPosition;
     const width = this.columnWidth;
-    let text = header.text;
+    let { text } = header;
     const emptyColor = header.emptyColor || this.headerEmptyColor;
     const emptyFontSize = header.emptyFontSize || this.headerEmptyFontSize;
     const emptyItalic = header.emptyItalic || this.headerEmptyItalic;
@@ -232,7 +238,7 @@ class PDFTable {
   }
 
   _addRow(column, row) {
-    const doc = this.builder.doc;
+    const { doc } = this.builder;
     const pageCount = doc.bufferedPageRange().count;
 
     // Repeat the header if a new page is needed
@@ -259,7 +265,7 @@ class PDFTable {
     const emptyItalic = row.emptyItalic || this.cellEmptyItalic;
     const emptyText = row.emptyText || this.cellEmptyText;
 
-    let text = row.text;
+    let { text } = row;
 
     const lineGap = this._rowLineGap(row);
     const width = this.columnWidth;
