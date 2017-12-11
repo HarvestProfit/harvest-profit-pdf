@@ -1,4 +1,7 @@
-export default class BasicPDFHeader {
+/**
+ * Generates a basic PDF Header
+ */
+class BasicPDFHeader {
   constructor(options, year) {
     this.year = year;
     if (options.includePagination !== undefined &&
@@ -57,3 +60,5 @@ export default class BasicPDFHeader {
     this.addYear();
   }
 }
+
+export default BasicPDFHeader;

@@ -1,4 +1,7 @@
-export default class BasicPDFFooter {
+/**
+ * Generates a basic PDF footer
+ */
+class BasicPDFFooter {
   constructor(options) {
     if (options.includePagination !== undefined &&
         options.includePagination !== null &&
@@ -67,3 +70,5 @@ export default class BasicPDFFooter {
     }
   }
 }
+
+export default BasicPDFFooter;

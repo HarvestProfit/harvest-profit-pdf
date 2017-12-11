@@ -1,6 +1,9 @@
 import logoPath from './logo';
 
-export default class HarvestProfitPDFFooter {
+/**
+ * Generates a HarvestProfit themed PDF footer.
+ */
+class HarvestProfitPDFFooter {
   constructor(options) {
     if (options.includePagination !== undefined &&
         options.includePagination !== null &&
@@ -74,3 +77,5 @@ export default class HarvestProfitPDFFooter {
     this.addCenterMessage();
   }
 }
+
+export default HarvestProfitPDFFooter;
