@@ -1,6 +1,6 @@
 {
   "name": "harvest-profit-pdf",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Generates PDFs for Harvest Profit",
   "main": "dist/index.js",
   "repository": "https://github.com/HarvestProfit/harvest-profit-pdf",
