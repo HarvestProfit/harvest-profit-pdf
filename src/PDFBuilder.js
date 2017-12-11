@@ -48,6 +48,10 @@ class PDFBuilder {
       this.metadata.filename = `${documentTitle}.pdf`;
     }
 
+    if (!this.metadata.tags) {
+      this.metadata.tags = [];
+    }
+
     this.doc.info.Title = documentTitle;
     this.doc.info.Producer = 'Harvest Profit';
     this.doc.info.Creator = 'Harvest Profit';
