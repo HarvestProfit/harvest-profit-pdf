@@ -56,7 +56,7 @@ class PDFBuilder {
 
     this.header = options.header;
     this.footer = options.footer;
-    this.documentFont = options.documentFont || 'Helvetica-Bold';
+    this.documentFont = options.documentFont || 'Helvetica';
     this.documentBoldFont = options.documentBoldFont || 'Helvetica-Bold';
     this.includePageNumber = (typeof options.includePageNumber === 'undefined') ? true : options.includePageNumber;
     this.headingFont = options.headingFont || this.documentBoldFont;
