@@ -44,8 +44,9 @@ class HarvestProfitPDFFooter {
    */
   addPagination() {
     if (this.pdfBuilder.includePageNumber) {
-      const { doc, margins } = this.pdfBuilder;
+      const { doc, margins, documentFont } = this.pdfBuilder;
       let text = this.currentPage;
+      doc.font(documentFont);
       doc.fontSize(9);
 
       if (this.docTitle.length > 0) {

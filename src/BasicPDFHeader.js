@@ -14,15 +14,14 @@ class BasicPDFHeader {
       documentBoldFont,
     } = this.pdfBuilder;
     const fontSize = 11;
-    let lineHeight = metadata.tags.length - 1;
+    const tags = metadata.tags || [];
+    let lineHeight = tags.length - 1;
     const contentHeight = margins.top + ((lineHeight + 1) * fontSize) + 10;
     const minHeight = margins.top + 30;
 
     this.height = contentHeight > minHeight ? contentHeight : minHeight;
     doc.font(documentFont);
     doc.fontSize(fontSize);
-
-    const tags = metadata.tags || [];
 
     for (let i = 0; i < tags.length; i += 1) {
       if (typeof tags[i] === 'string') {
