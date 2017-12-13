@@ -12,7 +12,14 @@
     "build": "rm -rf ./dist && webpack --config webpack.config.js --progress --profile -p",
     "clean": "rm -rf ./dist",
     "clean-docs": "rm -rf ./docs",
-    "test": "jest test/"
+    "prepublish": "yarn run build",
+    "report-coverage": "coveralls < ./coverage/lcov.info",
+    "test": "jest test/ --coverage"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/!(index).js"
+    ]
   },
   "files": [
     "LICENSE.md",
@@ -31,6 +38,7 @@
     "babel-preset-stage-2": "^6.24.1",
     "blob-to-buffer": "^1.2.6",
     "brfs": "^1.4.3",
+    "coveralls": "^3.0.0",
     "eslint": "^4.10.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0",

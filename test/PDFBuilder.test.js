@@ -1,4 +1,4 @@
-import { PDFBuilder } from '../dist';
+import { PDFBuilder } from '../src';
 import PDFTestHelper, { chunks, defaultPDFConfig } from './helper';
 
 describe('PDFBuilder', () => {

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Parser from 'pdf3json';
 import toBuffer from 'blob-to-buffer';
 
-import { BasicPDFHeader, HarvestProfitPDFFooter } from '../dist';
+import { BasicPDFHeader, HarvestProfitPDFFooter } from '../src';
 
 /**
  * Default PDF Configuration to test
